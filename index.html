@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Node Application</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="container" id="app">
+        <div class="card">
+            <h1 :style="{
+            color: inputValue.length < 5 ? 'red' : 'darkblue',
+            fontSize: inputValue.length < 5 ? '2rem' : '3rem'
+            }">{{ title }}</h1>
+            <div class="form-control">
+                <input 
+                type="text"
+                :placeholder="placeholderString"
+                :value="inputValue"
+                @input="inputChangeHandler"
+                @keypress.enter="addNewNote"
+                />
+            </div>
+            <button class="btn" @click="addNewNote">Add</button>
+            <hr />
+            <ul class="list" v-if="notes.length !== 0">
+                <li class="list-item" v-for="(note, idx) in notes">
+                  <span :class="note.length > 5 ? 'primary' : 'bold'"> ({{ idx+1 }}) {{ toUpperCase(note) }} </span>
+                    <button class="btn danger" @click="removeNote">remove</button>
+                </li>
+                <hr>
+                <li>
+                   <strong>Total amount: {{ notes.length }}</strong> | Doubled : {{ doubleCountComputed }}
+                </li>
+            </ul>
+            <div v-else>Have not any not yet. You can add first</div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="main.js"></script>
+</body>
+</html>
